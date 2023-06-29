@@ -1,0 +1,15 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+""""""
+type Classes {
+  id: String!
+  name: String
+  shortName: String
+}
+
+type Query {
+  getAClass: Classes!
+  getAllClasses: [Classes!]!
+}
