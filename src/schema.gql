@@ -9,7 +9,26 @@ type Classes {
   shortName: String
 }
 
+""""""
+input CreateClassInput {
+  name: String!
+  shortName: String
+}
+
+type Mutation {
+  CreateClass(input: CreateClassInput!): [Classes!]!
+  DeleteClass(id: String!): [Classes!]!
+  UpdateClass(input: UpdateClassInput!): [Classes!]!
+}
+
 type Query {
   getAClass: Classes!
   getAllClasses: [Classes!]!
+}
+
+""""""
+input UpdateClassInput {
+  id: String!
+  name: String
+  shortName: String
 }
