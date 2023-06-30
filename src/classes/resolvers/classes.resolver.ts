@@ -17,18 +17,18 @@ export class ClassesResolver {
     return await this.classesService.getAll();
   }
 
-  @Mutation(() => [Classes])
-  async CreateClass(@Args('input') input: CreateClassInput) {
+  @Mutation(() => Boolean)
+  async createClass(@Args('input') input: CreateClassInput) {
     return await this.classesService.create(input);
   }
 
-  @Mutation(() => [Classes])
-  async UpdateClass(@Args('input') input: UpdateClassInput) {
+  @Mutation(() => Boolean)
+  async updateClass(@Args('input') input: UpdateClassInput) {
     return await this.classesService.update(input);
   }
 
-  @Mutation(() => [Classes])
-  async DeleteClass(@Args('id', { type: () => String }) id: String) {
+  @Mutation(() => Boolean)
+  async deleteClass(@Args('id', { type: () => String }) id: String) {
     return await this.classesService.delete(id);
   }
 }

@@ -16,9 +16,9 @@ input CreateClassInput {
 }
 
 type Mutation {
-  CreateClass(input: CreateClassInput!): [Classes!]!
-  DeleteClass(id: String!): [Classes!]!
-  UpdateClass(input: UpdateClassInput!): [Classes!]!
+  createClass(input: CreateClassInput!): Boolean!
+  deleteClass(id: String!): Boolean!
+  updateClass(input: UpdateClassInput!): Boolean!
 }
 
 type Query {
