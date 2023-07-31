@@ -8,11 +8,12 @@ export default () => ({
       host: process.env.DB_HOST || 'localhost',
       port: parseInt(process.env.DB_PORT, 10) || 27017,
       dbName: process.env.DB_NAME || 'demo',
-      username: process.env.DB_USERNAME || 'longct',
-      password: process.env.DB_PASSWORD || 'longct123',
+      username: process.env.DB_USERNAME || 'chienzxzx33',
+      password: process.env.DB_PASSWORD || 'chienbhvt19',
     };
     return {
-      uri: `mongodb://${info.username}:${info.password}@${info.host}:${info.port}/${info.dbName}?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false`,
+      uri: `mongodb+srv://${info.username}:${info.password}@nestjs.icpdemp.mongodb.net/?retryWrites=true&w=majority`,
+      // uri: `mongodb://${info.username}:${info.password}@${info.host}:${info.port}/${info.dbName}?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false`,
     };
   },
   jwt: {

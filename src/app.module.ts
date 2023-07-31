@@ -10,6 +10,11 @@ import { AppService } from './app.service';
 import { ClassesModule } from './classes/classes.module';
 import config from './config';
 import { AppGraphQLFormattedError } from './error.models';
+import { MongooseModule } from '@nestjs/mongoose';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ProductsModule } from './products/products.module';
+import { CategoriesModule } from './categories/categories.module';
+import { AuthsModule } from './auths/auths.module';
 
 const GlobalModules = [
   ConfigModule.forRoot({
@@ -26,12 +31,25 @@ const GlobalModules = [
     formatError: (error: GraphQLError) => new AppGraphQLFormattedError(error),
   }),
 
-  // MongooseModule.forRootAsync({
-  //   useFactory: () => {
-  //     return {
-  //       uri: config().database().uri,
-  //     };
-  //   },
+  MongooseModule.forRootAsync({
+    useFactory: () => {
+      console.log('connecting...');
+      return {
+        uri: config().database().uri,
+      };
+    },
+  }),
+
+  // TypeOrmModule.forRoot({
+  //   type: 'mysql',
+  //   host: '<STACKHERO_MARIADB_HOST>',
+  //   port: 3306,
+  //   username: 'root',
+  //   password: '<STACKHERO_MARIADB_ROOT_PASSWORD>',
+  //   database: 'root',
+  //   entities: [],
+  //   synchronize: true,
+  //   ssl: {},
   // }),
 
   MailerModule.forRootAsync({
@@ -53,7 +71,13 @@ const GlobalModules = [
 ];
 
 @Module({
-  imports: [...GlobalModules, ClassesModule],
+  imports: [
+    ...GlobalModules,
+    ClassesModule,
+    ProductsModule,
+    CategoriesModule,
+    AuthsModule,
+  ],
   controllers: [AppController],
   providers: [
     // {

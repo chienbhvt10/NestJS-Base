@@ -7,6 +7,7 @@ import { UpdateClassInput } from '../dtos/update-class.input';
 @Resolver(() => Classes)
 export class ClassesResolver {
   constructor(private readonly classesService: ClassesService) {}
+
   @Query(() => Classes)
   async getAClass() {
     return await this.classesService.get();

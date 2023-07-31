@@ -8,4 +8,12 @@ export class UpdateClassInput extends PartialType(CreateClassInput) {
   @Field(() => String, { nullable: false })
   @IsNotEmpty()
   id: string;
+
+  @Field(() => String)
+  @IsNotEmpty()
+  name: string;
+
+  @Field(() => String, { nullable: true })
+  @IsOptional()
+  shortName?: string;
 }
