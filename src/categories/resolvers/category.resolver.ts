@@ -6,27 +6,27 @@ import { Category } from '../entities/category';
 export class CategoryResolver {
   constructor(private readonly categoryService: CategoryService) {}
 
-  @Query()
+  @Query(() => Category)
   async getCategory(): Promise<Category> {
     return this.categoryService.get();
   }
 
-  @Query()
+  @Query(() => [Category])
   async getCategories(): Promise<Category[]> {
     return this.categoryService.getAll();
   }
 
-  @Mutation()
+  @Mutation(() => Boolean)
   async createCategory(): Promise<Boolean> {
     return this.categoryService.create();
   }
 
-  @Mutation()
+  @Mutation(() => Boolean)
   async updateCategory(): Promise<Boolean> {
     return this.categoryService.update();
   }
 
-  @Mutation()
+  @Mutation(() => Boolean)
   async deleteCategory(id: String): Promise<Boolean> {
     return this.categoryService.delete(id);
   }

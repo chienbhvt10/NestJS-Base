@@ -6,27 +6,27 @@ import { Product } from '../entities/product';
 export class ProductResolever {
   constructor(private readonly productService: ProductService) {}
 
-  @Query()
+  @Query(() => Product)
   async getProduct(): Promise<Product> {
     return this.productService.get();
   }
 
-  @Query()
+  @Query(() => [Product])
   async getProducts(): Promise<Product[]> {
     return this.productService.getAll();
   }
 
-  @Mutation()
+  @Mutation(() => Boolean)
   async updateProduct(): Promise<Boolean> {
     return this.productService.update();
   }
 
-  @Mutation()
+  @Mutation(() => Boolean)
   async createProduct(): Promise<Boolean> {
     return this.productService.create();
   }
 
-  @Mutation()
+  @Mutation(() => Boolean)
   async deleteProduct(id: String): Promise<Boolean> {
     return this.productService.delete(id);
   }

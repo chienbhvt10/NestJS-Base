@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { User, UserSchema } from './entities/user';
 import { Role, RoleSchema } from './entities/role';
-import { RoleService } from './services/role.service';
+import { User, UserSchema } from './entities/user';
 import { RoleResolver } from './resolvers/role.resolver';
-import { UserService } from './services/user.service';
 import { UsersResolver } from './resolvers/user.resolver';
+import { RoleService } from './services/role.service';
+import { UserService } from './services/user.service';
 
 @Module({
   imports: [
@@ -14,7 +14,7 @@ import { UsersResolver } from './resolvers/user.resolver';
       { name: Role.name, schema: RoleSchema },
     ]),
   ],
-  providers: [RoleService, RoleResolver, UserService, UsersResolver],
-  exports: [RoleService, UserService],
+  providers: [UserService, UsersResolver, RoleService, RoleResolver],
+  exports: [UserService, RoleService],
 })
 export class AuthsModule {}

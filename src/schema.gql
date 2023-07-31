@@ -3,6 +3,12 @@
 # ------------------------------------------------------
 
 """"""
+type Category {
+  id: String!
+  name: String!
+}
+
+""""""
 type Classes {
   id: String!
   name: String
@@ -16,19 +22,43 @@ input CreateClassInput {
 }
 
 type Mutation {
+  createCategory: Boolean!
   createClass(input: CreateClassInput!): Boolean!
+  createProduct: Boolean!
+  deleteCategory: Boolean!
   deleteClass(id: String!): Boolean!
+  deleteProduct: Boolean!
+  login: Boolean!
+  updateCategory: Boolean!
   updateClass(input: UpdateClassInput!): Boolean!
+  updateProduct: Boolean!
+}
+
+""""""
+type Product {
+  categoryId: Float
+  id: String!
+  name: String
+  price: Float
+  shortName: String
 }
 
 type Query {
+  changePassword: Boolean!
+  forgotPassword: Boolean!
   getAClass: Classes!
   getAllClasses: [Classes!]!
+  getCategories: [Category!]!
+  getCategory: Category!
+  getProduct: Product!
+  getProducts: [Product!]!
+  me: Boolean!
+  register: Boolean!
 }
 
 """"""
 input UpdateClassInput {
   id: String!
-  name: String
+  name: String!
   shortName: String
 }

@@ -2,33 +2,34 @@ import { Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Role } from '../entities/role';
 import { CreateRoleInput } from '../dto/create-role.input';
 import { UpdateRoleInput } from '../dto/update-role.input';
+import { RoleService } from '../services/role.service';
 
-@Resolver()
+@Resolver(() => Role)
 export class RoleResolver {
-  constructor(private readonly roleService: RoleResolver) {}
+  constructor(private readonly roleService: RoleService) {}
 
-  @Query()
+  @Query(() => Role)
   async getRoles(): Promise<Role[]> {
-    return [];
+    return await this.roleService.getRoles();
   }
 
-  @Query()
+  @Query(() => [Role])
   async getRole(): Promise<Role> {
-    return null;
+    return await this.roleService.getRole();
   }
 
-  @Mutation()
+  @Mutation(() => Boolean)
   async createRole(input: CreateRoleInput): Promise<Boolean> {
-    return true;
+    return await this.roleService.createRole(input);
   }
 
-  @Mutation()
+  @Mutation(() => Boolean)
   async updateRole(input: UpdateRoleInput): Promise<Boolean> {
-    return true;
+    return await this.roleService.updateRole(input);
   }
 
-  @Mutation()
+  @Mutation(() => Boolean)
   async deleteRole(id: String): Promise<Boolean> {
-    return true;
+    return await this.roleService.deleteRole(id);
   }
 }
