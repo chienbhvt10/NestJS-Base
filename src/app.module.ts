@@ -33,7 +33,7 @@ const GlobalModules = [
 
   MongooseModule.forRootAsync({
     useFactory: () => {
-      console.log('connecting...');
+      console.log('connecting...', config().database().uri);
       return {
         uri: config().database().uri,
       };

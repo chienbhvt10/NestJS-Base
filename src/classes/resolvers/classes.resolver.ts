@@ -9,8 +9,8 @@ export class ClassesResolver {
   constructor(private readonly classesService: ClassesService) {}
 
   @Query(() => Classes)
-  async getAClass() {
-    return await this.classesService.get();
+  async getAClass(@Args('id', { type: () => String }) id: string) {
+    return await this.classesService.get(id);
   }
 
   @Query(() => [Classes])
@@ -18,17 +18,17 @@ export class ClassesResolver {
     return await this.classesService.getAll();
   }
 
-  @Mutation(() => Boolean)
+  @Mutation(() => Classes)
   async createClass(@Args('input') input: CreateClassInput) {
     return await this.classesService.create(input);
   }
 
-  @Mutation(() => Boolean)
+  @Mutation(() => Classes)
   async updateClass(@Args('input') input: UpdateClassInput) {
     return await this.classesService.update(input);
   }
 
-  @Mutation(() => Boolean)
+  @Mutation(() => Classes)
   async deleteClass(@Args('id', { type: () => String }) id: String) {
     return await this.classesService.delete(id);
   }
