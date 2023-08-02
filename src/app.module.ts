@@ -15,6 +15,7 @@ import config from './config';
 import { AppGraphQLFormattedError } from './error.models';
 import { ProductsModule } from './products/products.module';
 import { SocketModule } from './socket/socket.module';
+import { ExcelsModule } from './excels/excels.module';
 
 const GlobalModules = [
   ConfigModule.forRoot({
@@ -78,6 +79,7 @@ const GlobalModules = [
     CategoriesModule,
     AuthsModule,
     SocketModule,
+    ExcelsModule,
   ],
   controllers: [AppController],
   providers: [
