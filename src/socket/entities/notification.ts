@@ -1,11 +1,12 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType, PartialType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { BaseType } from 'src/common/common.entity';
 
 export type NotificationDocument = Notification & Document;
 
 @ObjectType({ description: '' })
 @Schema({ id: true })
-export class Notification {
+export class Notification extends PartialType(BaseType) {
   @Field(() => String)
   id: string;
 

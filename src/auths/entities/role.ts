@@ -1,11 +1,12 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType, PartialType } from '@nestjs/graphql';
 import { Schema, SchemaFactory } from '@nestjs/mongoose';
+import { BaseType } from 'src/common/common.entity';
 
 export type RoleDocument = Role & Document;
 
 @ObjectType({ description: '' })
 @Schema()
-export class Role {
+export class Role extends PartialType(BaseType) {
   @Field(() => String)
   id: string;
 

@@ -1,12 +1,13 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType, PartialType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ClassesSchema } from 'src/classes/entities/classes.entity';
+import { BaseType } from 'src/common/common.entity';
 
 export type UserDocument = User & Document;
 
 @ObjectType({ description: '' })
 @Schema()
-export class User {
+export class User extends PartialType(BaseType) {
   @Field(() => String)
   id: string;
 
