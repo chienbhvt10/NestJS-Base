@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { SocketResolver } from './socket.resolver';
-import { SocketService } from './socket.service';
+import { SocketResolver } from './resolvers/socket.resolver';
+import { SocketService } from './services/socket.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Message, MessageSchema } from './entities/message';
 import { Notification, NotificationSchema } from './entities/notification';

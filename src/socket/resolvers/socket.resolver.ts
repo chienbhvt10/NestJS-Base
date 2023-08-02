@@ -6,7 +6,7 @@ import {
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
-import { SocketService } from './socket.service';
+import { SocketService } from '../services/socket.service';
 
 @WebSocketGateway({ cors: true })
 export class SocketResolver
