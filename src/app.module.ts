@@ -15,6 +15,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductsModule } from './products/products.module';
 import { CategoriesModule } from './categories/categories.module';
 import { AuthsModule } from './auths/auths.module';
+import { MessengersModule } from './messengers/messengers.module';
+import { NotificationModule } from './notification/notification.module';
 
 const GlobalModules = [
   ConfigModule.forRoot({
@@ -77,6 +79,8 @@ const GlobalModules = [
     ProductsModule,
     CategoriesModule,
     AuthsModule,
+    MessengersModule,
+    NotificationModule,
   ],
   controllers: [AppController],
   providers: [
