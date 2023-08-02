@@ -3,20 +3,18 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
+import { MongooseModule } from '@nestjs/mongoose';
 import { GraphQLError } from 'graphql';
 import * as depthLimit from 'graphql-depth-limit';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AuthsModule } from './auths/auths.module';
+import { CategoriesModule } from './categories/categories.module';
 import { ClassesModule } from './classes/classes.module';
 import config from './config';
 import { AppGraphQLFormattedError } from './error.models';
-import { MongooseModule } from '@nestjs/mongoose';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductsModule } from './products/products.module';
-import { CategoriesModule } from './categories/categories.module';
-import { AuthsModule } from './auths/auths.module';
-import { MessengersModule } from './messengers/messengers.module';
-import { NotificationModule } from './notification/notification.module';
+import { SocketModule } from './socket/socket.module';
 
 const GlobalModules = [
   ConfigModule.forRoot({
@@ -79,8 +77,7 @@ const GlobalModules = [
     ProductsModule,
     CategoriesModule,
     AuthsModule,
-    MessengersModule,
-    NotificationModule,
+    SocketModule,
   ],
   controllers: [AppController],
   providers: [
