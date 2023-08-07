@@ -1,6 +1,7 @@
 import { Mutation, Query, Resolver } from '@nestjs/graphql';
 import { User } from '../entities/user';
 import { UserService } from '../services/user.service';
+import { ChangePasswordInput } from '../dto/change-password.input';
 
 @Resolver(() => User)
 export class UsersResolver {
@@ -17,8 +18,8 @@ export class UsersResolver {
   }
 
   @Query(() => Boolean)
-  async changePassword() {
-    return await this.userService.changePassword();
+  async changePassword(user: User, input: ChangePasswordInput) {
+    return await this.userService.changePassword(user, input);
   }
 
   @Query(() => Boolean)

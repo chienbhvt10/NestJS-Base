@@ -16,6 +16,8 @@ import { AppGraphQLFormattedError } from './error.models';
 import { ProductsModule } from './products/products.module';
 import { SocketModule } from './socket/socket.module';
 import { ExcelsModule } from './excels/excels.module';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './auths/guards/jwt.guard';
 
 const GlobalModules = [
   ConfigModule.forRoot({
@@ -88,10 +90,10 @@ const GlobalModules = [
     //   useClass: AppValidationPipe,
     // },
     AppService,
-    // {
-    //   provide: APP_GUARD,
-    //   useClass: null,
-    // },
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
   ],
 })
 export class AppModule {}

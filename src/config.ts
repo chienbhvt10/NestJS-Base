@@ -17,7 +17,7 @@ export default () => ({
     };
   },
   jwt: {
-    secret: process.env.JWT_SECRET || 'uWW48ATzjs3w8W1',
+    secret: process.env.JWT_SECRET || 'Duong Cong Chien',
     accessTokenActiveExpireTime:
       +process.env.ACTIVE_USER_EXPIRE_TIME || 1000 * 60 * 60 * 24 * 100,
     accessTokenExpireTime: process.env.JWT_ACCESS_EXPIRATION_TIME || '15d',

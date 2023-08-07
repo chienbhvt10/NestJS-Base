@@ -1,20 +1,43 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Role, RoleSchema } from './entities/role';
 import { User, UserSchema } from './entities/user';
-import { RoleResolver } from './resolvers/role.resolver';
 import { UsersResolver } from './resolvers/user.resolver';
-import { RoleService } from './services/role.service';
+import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
+import { Connection } from 'mongoose';
+import config from 'src/config';
+import { Auth, AuthSchema } from './entities/auth.entity';
+import { AuthResolver } from './resolvers/auth.resolver';
+import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
+import { JwtStrategy } from './strategy/jwt.strategy';
+import { LocalStrategy } from './strategy/local.strategy';
 
 @Module({
   imports: [
+    PassportModule,
+    JwtModule.registerAsync({
+      useFactory: () => ({
+        secret: config().jwt.secret,
+        signOptions: {
+          expiresIn: config().jwt.accessTokenExpireTime,
+        },
+      }),
+    }),
     MongooseModule.forFeature([
       { name: User.name, schema: UserSchema },
-      { name: Role.name, schema: RoleSchema },
+      { name: Auth.name, schema: AuthSchema },
     ]),
   ],
-  providers: [UserService, UsersResolver, RoleService, RoleResolver],
-  exports: [UserService, RoleService],
+  providers: [
+    UserService,
+    UsersResolver,
+    AuthService,
+    AuthResolver,
+    LocalStrategy,
+    JwtStrategy,
+    Connection,
+  ],
+  exports: [UserService, AuthService],
 })
 export class AuthsModule {}

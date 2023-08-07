@@ -34,16 +34,13 @@ type Mutation {
   createCategory: Boolean!
   createClass(input: CreateClassInput!): Classes!
   createProduct: Boolean!
-  createRole: Boolean!
   deleteCategory: Boolean!
   deleteClass(id: String!): Classes!
   deleteProduct: Boolean!
-  deleteRole: Boolean!
   login: Boolean!
   updateCategory: Boolean!
   updateClass(input: UpdateClassInput!): Classes!
   updateProduct: Boolean!
-  updateRole: Boolean!
 }
 
 """"""
@@ -66,18 +63,8 @@ type Query {
   getCategory: Category!
   getProduct: Product!
   getProducts: [Product!]!
-  getRole: [Role!]!
-  getRoles: Role!
   me: Boolean!
   register: Boolean!
-}
-
-""""""
-type Role {
-  createdAt: DateTime
-  id: String!
-  name: String!
-  updatedAt: DateTime
 }
 
 """"""
