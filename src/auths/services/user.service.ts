@@ -7,12 +7,32 @@ import { ChangePasswordInput } from '../dto/change-password.input';
 import { ErrorData } from 'src/error.models';
 import { CreateUserInput } from '../dto/create-user-input';
 import { ROLE } from 'src/common/enums';
-import { UpdateUserInput } from '../dto/update-user-input';
-import { UpdateUserProfileInput } from '../dto/update-user-profile-input';
+import { UpdateUserInput } from '../dto/update-user.input';
+import { UpdateUserProfileInput } from '../dto/update-user-profile.input';
+import { InjectConnection } from '@nestjs/mongoose';
 
 @Injectable()
 export class UserService {
-  constructor(private connection: Connection, private jwtService: JwtService) {}
+  constructor(
+    @InjectConnection() private connection: Connection,
+    private jwtService: JwtService,
+  ) {}
+
+  async getAuthenticatedUser(
+    username: string,
+    password: string,
+    role?: ROLE,
+  ): Promise<User> {
+    const user = await this.getModel()
+      .findOne({ username: username, role: role })
+      .exec();
+
+    console.log(compareSync(password, user?.password));
+    if (user && !compareSync(password, user?.password)) {
+      return null;
+    }
+    return user;
+  }
 
   async forgotPassword(): Promise<Boolean> {
     return null;
@@ -49,7 +69,7 @@ export class UserService {
   }
 
   async createAdminUser(input: CreateUserInput): Promise<User> {
-    return this.createClientUser({ ...input, role: ROLE.ADMIN });
+    return this.createClientUser({ ...input, role: input.role });
   }
 
   async createClientUser(input: CreateUserInput): Promise<User> {
@@ -66,8 +86,8 @@ export class UserService {
       const newUser = new User();
       newUser.username = input.username;
       newUser.email = input.email;
-      newUser.password = input.password;
-      newUser.role = ROLE.CLIENT;
+      newUser.password = await hash(input.password, 10);
+      newUser.role = input.role;
       user = await this.getModel().create(newUser);
 
       // send email
@@ -76,16 +96,13 @@ export class UserService {
     return user;
   }
 
-  async updateUser(
-    id: string,
-    updateUserInput: UpdateUserInput,
-  ): Promise<User> {
+  async updateUser(id: string, input: UpdateUserInput): Promise<User> {
     return await this.getModel()
       .findOneAndUpdate(
         { _id: id },
         {
           $set: {
-            email: updateUserInput.email || undefined,
+            email: input.email || undefined,
           },
         },
         { returnDocument: 'after' },
@@ -95,11 +112,11 @@ export class UserService {
 
   async updateUserProfile(
     id: string,
-    updateUserProfileInput: UpdateUserProfileInput,
+    input: UpdateUserProfileInput,
   ): Promise<User> {
     const updateUserInput: UpdateUserInput = {
       id,
-      email: updateUserProfileInput.email,
+      email: input.email,
     };
     return await this.updateUser(id, updateUserInput);
   }

@@ -61,8 +61,8 @@ type Mutation {
   deleteCategory: Boolean!
   deleteClass(id: String!): Classes!
   deleteProduct: Boolean!
-  loginAdmin(loginInput: LoginInput!): Auth!
-  loginClient(loginInput: LoginInput!): Auth!
+  loginAdmin(input: LoginInput!): Auth!
+  loginClient(input: LoginInput!): Auth!
   removeUser(id: String!): User!
   updateCategory: Boolean!
   updateClass(input: UpdateClassInput!): Classes!

@@ -24,7 +24,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     } else if (context.getArgs().req) {
       req = context.getArgs().req;
     }
-
+    console.log('requiredRoles', requiredRoles);
     if (req) {
       req.requiredRoles = requiredRoles;
     }
@@ -41,7 +41,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     if (isPublic) {
       return true;
     }
-
+    console.log('isPublic', isPublic);
     const ctx = GqlExecutionContext.create(context);
     return super.canActivate(ctx);
   }

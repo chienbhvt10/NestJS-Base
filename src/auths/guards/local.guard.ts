@@ -10,10 +10,12 @@ export class CustomerLocalAuthGuard extends AuthGuard('local') {
     const ctx = GqlExecutionContext.create(context);
     const req = ctx.getContext().req;
     req.body = {
-      ...ctx.getArgs().loginInput,
+      // must be match with args of graphql args api
+      ...ctx.getArgs().input,
       ...{ role: ROLE.CLIENT },
     };
 
+    console.log('CustomerLocalAuthGuard', ctx.getArgs());
     return req;
   }
 }
@@ -25,9 +27,11 @@ export class AdminLocalAuthGuard extends AuthGuard('local') {
     const ctx = GqlExecutionContext.create(context);
     const req = ctx.getContext().req;
     req.body = {
-      ...ctx.getArgs().loginInput,
+      // must be match with args of graphql args api
+      ...ctx.getArgs().input,
       ...{ role: ROLE.ADMIN },
     };
+    console.log('AdminLocalAuthGuard', req.body);
     return req;
   }
 }

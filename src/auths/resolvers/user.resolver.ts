@@ -1,16 +1,21 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { User, UserPreview } from '../entities/user';
 import { UserService } from '../services/user.service';
-import { ChangePasswordInput } from '../dto/change-password.input';
-import { CreateUserInput } from '../dto/create-user-input';
-import { UpdateUserInput } from '../dto/update-user-input';
-import { UpdateUserProfileInput } from '../dto/update-user-profile-input';
 import { Roles } from '../decorators/roles.decorator';
 import { ROLE } from 'src/common/enums';
 import { Public } from '../decorators/public.decorator';
 import { CurrentUser } from '../decorators/current-user.decorator';
+import { JwtAuthGuard } from '../guards/jwt.guard';
+import { UseGuards } from '@nestjs/common';
+import {
+  ChangePasswordInput,
+  CreateUserInput,
+  UpdateUserInput,
+  UpdateUserProfileInput,
+} from '../dto';
 
 @Resolver(() => User)
+@UseGuards(JwtAuthGuard)
 export class UsersResolver {
   constructor(private readonly userService: UserService) {}
 
@@ -49,7 +54,10 @@ export class UsersResolver {
   async createAdminUser(
     @Args('input', { type: () => CreateUserInput }) input: CreateUserInput,
   ) {
-    return await this.userService.createAdminUser(input);
+    return await this.userService.createAdminUser({
+      ...input,
+      role: ROLE.ADMIN,
+    });
   }
 
   @Public()
@@ -57,7 +65,10 @@ export class UsersResolver {
   async createClientUser(
     @Args('input', { type: () => CreateUserInput }) input: CreateUserInput,
   ) {
-    return await this.userService.createClientUser(input);
+    return await this.userService.createClientUser({
+      ...input,
+      role: ROLE.CLIENT,
+    });
   }
 
   @Roles(ROLE.ADMIN)
