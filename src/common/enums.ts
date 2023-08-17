@@ -1,4 +1,6 @@
-export enum SortValue {
+import { registerEnumType } from '@nestjs/graphql';
+
+export enum SORT_VALUE {
   ASC = 'asc',
   DESC = 'desc',
 }
@@ -13,3 +15,7 @@ export enum USER_STATUS {
   ACTIVE = 'ACTIVE',
   IN_ACTIVE = 'IN_ACTIVE',
 }
+
+registerEnumType(ROLE, { name: 'Role' });
+registerEnumType(SORT_VALUE, { name: 'SortValue' });
+registerEnumType(USER_STATUS, { name: 'UserStatus' });

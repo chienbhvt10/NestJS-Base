@@ -15,6 +15,11 @@ type Category {
   updatedAt: DateTime
 }
 
+input ChangePasswordInput {
+  newPass: String!
+  oldPass: String!
+}
+
 """"""
 type Classes {
   createdAt: DateTime
@@ -30,6 +35,12 @@ input CreateClassInput {
   shortName: String
 }
 
+input CreateUserInput {
+  email: String!
+  password: String!
+  username: String!
+}
+
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
@@ -41,18 +52,23 @@ input LoginInput {
 }
 
 type Mutation {
+  changePassword(input: ChangePasswordInput!): Boolean!
+  createAdminUser(input: CreateUserInput!): User!
   createCategory: Boolean!
   createClass(input: CreateClassInput!): Classes!
+  createClientUser(input: CreateUserInput!): User!
   createProduct: Boolean!
   deleteCategory: Boolean!
   deleteClass(id: String!): Classes!
   deleteProduct: Boolean!
-  login: Boolean!
   loginAdmin(loginInput: LoginInput!): Auth!
   loginClient(loginInput: LoginInput!): Auth!
+  removeUser(id: String!): User!
   updateCategory: Boolean!
   updateClass(input: UpdateClassInput!): Classes!
   updateProduct: Boolean!
+  updateUser(input: UpdateUserInput!): User!
+  updateUserProfile(input: UpdateUserInput!): User!
 }
 
 """"""
@@ -67,16 +83,21 @@ type Product {
 }
 
 type Query {
-  changePassword: Boolean!
   forgotPassword: Boolean!
   getAClass(id: String!): Classes!
+  getAUser(id: String!): User!
   getAllClasses: [Classes!]!
+  getAllUsers: [User!]!
   getCategories: [Category!]!
   getCategory: Category!
   getProduct: Product!
   getProducts: [Product!]!
   me: Boolean!
-  register: Boolean!
+}
+
+enum Role {
+  ADMIN
+  CLIENT
 }
 
 """"""
@@ -84,4 +105,28 @@ input UpdateClassInput {
   id: String!
   name: String!
   shortName: String
+}
+
+input UpdateUserInput {
+  email: String
+  id: String!
+  username: String
+}
+
+""""""
+type User {
+  createdAt: DateTime
+  email: String!
+  id: String!
+  password: String!
+  role: Role!
+  status: UserStatus!
+  updatedAt: DateTime
+  username: String!
+}
+
+enum UserStatus {
+  ACTIVE
+  IN_ACTIVE
+  NOT_ACTIVE
 }

@@ -1,5 +1,5 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
-import { SortValue } from './enums';
+import { SORT_VALUE } from './enums';
 
 @InputType()
 export class RefInput {
@@ -49,10 +49,10 @@ export class SortInput {
   @Field(() => String)
   key: string;
 
-  @Field(() => SortValue, {
+  @Field(() => SORT_VALUE, {
     nullable: true,
   })
-  value: SortValue;
+  value: SORT_VALUE;
 }
 
 @InputType()
