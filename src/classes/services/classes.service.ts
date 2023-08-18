@@ -3,7 +3,7 @@ import { InjectConnection, InjectModel } from '@nestjs/mongoose';
 import { ObjectId } from 'mongodb';
 import { Connection, Model } from 'mongoose';
 import { PaginationInput, WhereInput } from 'src/common/common.input';
-import { ErrorData } from 'src/error.models';
+import { ErrorData } from 'src/common/error.models';
 import { CreateClassInput } from '../dtos/create-class.input';
 import { UpdateClassInput } from '../dtos/update-class.input';
 import { Classes } from '../entities/classes.entity';

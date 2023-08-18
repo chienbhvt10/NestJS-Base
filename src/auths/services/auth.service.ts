@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectConnection } from '@nestjs/mongoose';
 import { Connection } from 'mongoose';
 import { UserPreview } from '../entities/user';
-import { ErrorData } from 'src/error.models';
+import { ErrorData } from 'src/common/error.models';
 import { Auth, AuthSchema } from '../entities/auth.entity';
 import { nanoid } from 'nanoid';
 import config from 'src/config';

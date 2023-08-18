@@ -12,11 +12,14 @@ import { AuthsModule } from './auths/auths.module';
 import { CategoriesModule } from './categories/categories.module';
 import { ClassesModule } from './classes/classes.module';
 import config from './config';
-import { AppGraphQLFormattedError } from './error.models';
+import {
+  AppGraphQLFormattedError,
+  AppValidationPipe,
+} from './common/error.models';
 import { ProductsModule } from './products/products.module';
 import { SocketModule } from './socket/socket.module';
 import { ExcelsModule } from './excels/excels.module';
-import { APP_GUARD } from '@nestjs/core';
+import { APP_GUARD, APP_PIPE } from '@nestjs/core';
 import { JwtAuthGuard } from './auths/guards/jwt.guard';
 
 const GlobalModules = [
@@ -85,10 +88,10 @@ const GlobalModules = [
   ],
   controllers: [AppController],
   providers: [
-    // {
-    //   provide: APP_PIPE,
-    //   useClass: AppValidationPipe,
-    // },
+    {
+      provide: APP_PIPE,
+      useClass: AppValidationPipe,
+    },
     AppService,
     {
       provide: APP_GUARD,

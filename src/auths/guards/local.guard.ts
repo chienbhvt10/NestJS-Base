@@ -15,7 +15,6 @@ export class CustomerLocalAuthGuard extends AuthGuard('local') {
       ...{ role: ROLE.CLIENT },
     };
 
-    console.log('CustomerLocalAuthGuard', ctx.getArgs());
     return req;
   }
 }
@@ -31,7 +30,6 @@ export class AdminLocalAuthGuard extends AuthGuard('local') {
       ...ctx.getArgs().input,
       ...{ role: ROLE.ADMIN },
     };
-    console.log('AdminLocalAuthGuard', req.body);
     return req;
   }
 }

@@ -4,7 +4,7 @@ import { User, UserSchema } from '../entities/user';
 import { JwtService } from '@nestjs/jwt';
 import { compareSync, hash } from 'bcrypt';
 import { ChangePasswordInput } from '../dto/change-password.input';
-import { ErrorData } from 'src/error.models';
+import { ErrorData } from 'src/common/error.models';
 import { CreateUserInput } from '../dto/create-user-input';
 import { ROLE } from 'src/common/enums';
 import { UpdateUserInput } from '../dto/update-user.input';
@@ -27,7 +27,6 @@ export class UserService {
       .findOne({ username: username, role: role })
       .exec();
 
-    console.log(compareSync(password, user?.password));
     if (user && !compareSync(password, user?.password)) {
       return null;
     }

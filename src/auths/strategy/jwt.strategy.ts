@@ -4,7 +4,7 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { UserService } from '../services/user.service';
 import config from 'src/config';
 import { User } from '../entities/user';
-import { ErrorData } from 'src/error.models';
+import { ErrorData } from 'src/common/error.models';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -19,7 +19,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   async validate(req: any, payload: any): Promise<User> {
     const user = await this.userService.findOne(payload.sub);
-    console.log('user', user);
     this.checkRole(user.role, req.requiredRoles);
     return user;
   }
