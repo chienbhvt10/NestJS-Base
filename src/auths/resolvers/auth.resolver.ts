@@ -2,7 +2,7 @@ import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { CurrentUser } from '../decorators/current-user.decorator';
 import { Auth } from '../entities/auth.entity';
-import { User } from '../entities/user';
+import { User } from '../../users/entities/user';
 import {
   AdminLocalAuthGuard,
   CustomerLocalAuthGuard,

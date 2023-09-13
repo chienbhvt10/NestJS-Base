@@ -3,13 +3,13 @@ import { Connection, Model } from 'mongoose';
 import { User, UserSchema } from '../entities/user';
 import { JwtService } from '@nestjs/jwt';
 import { compareSync, hash } from 'bcrypt';
-import { ChangePasswordInput } from '../dto/change-password.input';
+import { ChangePasswordInput } from '../dtos/change-password.input';
 import { ErrorData } from 'src/common/error.models';
-import { CreateUserInput } from '../dto/create-user-input';
 import { ROLE } from 'src/common/enums';
-import { UpdateUserInput } from '../dto/update-user.input';
-import { UpdateUserProfileInput } from '../dto/update-user-profile.input';
 import { InjectConnection } from '@nestjs/mongoose';
+import { CreateUserInput } from '../dtos/create-user-input';
+import { UpdateUserInput } from '../dtos/update-user.input';
+import { UpdateUserProfileInput } from '../dtos/update-user-profile.input';
 
 @Injectable()
 export class UserService {

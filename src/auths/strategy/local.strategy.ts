@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
-import { UserService } from '../services/user.service';
-import { User } from '../entities/user';
+import { User } from '../../users/entities/user';
 import { ROLE } from 'src/common/enums';
 import { ErrorData } from 'src/common/error.models';
+import { UserService } from 'src/users/services/user.service';
 
 // LocalStrategy run without authentication
 @Injectable()

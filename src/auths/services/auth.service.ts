@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectConnection } from '@nestjs/mongoose';
 import { Connection } from 'mongoose';
-import { UserPreview } from '../entities/user';
+import { UserPreview } from '../../users/entities/user';
 import { ErrorData } from 'src/common/error.models';
 import { Auth, AuthSchema } from '../entities/auth.entity';
 import { nanoid } from 'nanoid';
@@ -23,7 +23,7 @@ export class AuthService {
       auth.accessToken = tokens.accessToken;
       auth.refreshToken = tokens.refreshToken;
       auth.user = new ObjectId(user.id);
-
+      console.log(auth);
       return {
         ...(await this.getModel().create(auth)),
         ...tokens,
@@ -50,7 +50,7 @@ export class AuthService {
         uuid: nanoid(),
       };
       return this.jwtService.sign(payload, {
-        subject: user.id,
+        subject: user?.id?.toString(),
         expiresIn: config().jwt.refreshTokenExpireTime,
       });
     } catch (e) {
@@ -66,7 +66,7 @@ export class AuthService {
       jti: refreshTokenPayload.jti,
     };
     return this.jwtService.sign(payload, {
-      subject: user.id,
+      subject: user?.id?.toString(),
     });
   }
 

@@ -1,10 +1,10 @@
-import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import { ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { ROLE } from 'src/common/enums';
-import { ROLES_KEY } from '../decorators/roles.decorator';
-import { AuthGuard } from '@nestjs/passport';
 import { GqlExecutionContext } from '@nestjs/graphql';
+import { AuthGuard } from '@nestjs/passport';
+import { ROLE } from 'src/common/enums';
 import { KEY_PUBLIC } from '../decorators/public.decorator';
+import { ROLES_KEY } from '../decorators/roles.decorator';
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
@@ -24,13 +24,14 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     } else if (context.getArgs().req) {
       req = context.getArgs().req;
     }
+
     if (req) {
       req.requiredRoles = requiredRoles;
     }
     return req;
   }
 
-  //  override of authguard
+  //  override of authguard, run first
   canActivate(context: ExecutionContext) {
     const isPublic = this.reflector.getAllAndOverride<boolean[]>(KEY_PUBLIC, [
       context.getHandler(),

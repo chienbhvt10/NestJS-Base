@@ -1,7 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ObjectId } from 'mongodb';
-import { User } from './user';
+import { User } from '../../users/entities/user';
 
 @ObjectType()
 @Schema({ id: true })

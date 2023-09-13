@@ -1,18 +1,18 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { User, UserPreview } from '../entities/user';
 import { UserService } from '../services/user.service';
-import { Roles } from '../decorators/roles.decorator';
+import { Roles } from '../../auths/decorators/roles.decorator';
 import { ROLE } from 'src/common/enums';
-import { Public } from '../decorators/public.decorator';
-import { CurrentUser } from '../decorators/current-user.decorator';
-import { JwtAuthGuard } from '../guards/jwt.guard';
+import { Public } from '../../auths/decorators/public.decorator';
+import { CurrentUser } from '../../auths/decorators/current-user.decorator';
+import { JwtAuthGuard } from '../../auths/guards/jwt.guard';
 import { UseGuards } from '@nestjs/common';
 import {
-  ChangePasswordInput,
   CreateUserInput,
   UpdateUserInput,
   UpdateUserProfileInput,
-} from '../dto';
+} from '../dtos';
+import { ChangePasswordInput } from '../dtos/change-password.input';
 
 @Resolver(() => User)
 @UseGuards(JwtAuthGuard)

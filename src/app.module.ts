@@ -21,6 +21,7 @@ import { SocketModule } from './socket/socket.module';
 import { ExcelsModule } from './excels/excels.module';
 import { APP_GUARD, APP_PIPE } from '@nestjs/core';
 import { JwtAuthGuard } from './auths/guards/jwt.guard';
+import { UserModule } from './users/users.module';
 
 const GlobalModules = [
   ConfigModule.forRoot({
@@ -79,10 +80,11 @@ const GlobalModules = [
 @Module({
   imports: [
     ...GlobalModules,
+    AuthsModule,
+    UserModule,
     ClassesModule,
     ProductsModule,
     CategoriesModule,
-    AuthsModule,
     SocketModule,
     ExcelsModule,
   ],
